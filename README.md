@@ -1,5 +1,3 @@
-# Industry Sector Wise Password Encoder Application
-
 # Industry-Sector Wise Password Encoding Demo (Spring Boot 3)
 
 This project demonstrates a secure, flexible user authentication system in **Spring Boot 3.5.3** that applies **industry-specific password encoding strategies** based on customer type:
