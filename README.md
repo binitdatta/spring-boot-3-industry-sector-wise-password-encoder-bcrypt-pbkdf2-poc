@@ -2,8 +2,8 @@
 
 This project demonstrates a secure, flexible user authentication system in **Spring Boot 3.5.3** that applies **industry-specific password encoding strategies** based on customer type:
 
-- **Commercial users**: passwords are encoded using **BCrypt**
-- **Government users**: passwords are encoded using **PBKDF2WithHmacSHA256** (FIPS-aligned)
+- **Retail users**: passwords are encoded using **BCrypt**
+- **Healthcare (HIPAA) users**: passwords are encoded using **PBKDF2WithHmacSHA256** (FIPS-aligned)
 
 It features:
 - A login and registration UI built with **Thymeleaf + Bootstrap 5**
@@ -19,7 +19,137 @@ This architecture allows Spring Boot to serve as the authoritative encoder, whil
 
 ## Build Overview
 
-Here is the `## Build Overview` section in **Markdown format** for your `README.md`:
+Your `build.gradle` is a **Gradle build script** for a Spring Boot 3.5.3 project using **Java 21**, with support for **JPA**, **Thymeleaf**, **Web**, **Security**, and **encryption (Bouncy Castle)**. Here’s a detailed breakdown:
+
+---
+
+## ✅ Plugins
+
+```groovy
+plugins {
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+}
+```
+
+| Plugin                            | Purpose                                                               |
+| --------------------------------- | --------------------------------------------------------------------- |
+| `org.springframework.boot`        | Enables Spring Boot features like auto-configuration, packaging, etc. |
+| `io.spring.dependency-management` | Manages dependency versions from Spring Boot BOM                      |
+| `java`                            | Standard Java plugin to compile and build Java projects               |
+
+---
+
+## 📦 Project Metadata
+
+```groovy
+group = 'com.rollingstone'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+sourceCompatibility = '21'
+```
+
+| Property              | Description                             |
+| --------------------- | --------------------------------------- |
+| `group`               | Maven group ID – often a reverse domain |
+| `version`             | Project version                         |
+| `description`         | Optional project description            |
+| `sourceCompatibility` | Compiles code for Java 21               |
+
+---
+
+## 📚 Repositories
+
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+* Uses **Maven Central** to resolve dependencies (most common public repository)
+
+---
+
+## 📦 Dependencies
+
+```groovy
+dependencies {
+```
+
+### 🔧 Core Starters
+
+| Dependency                      | Role                                                               |
+| ------------------------------- | ------------------------------------------------------------------ |
+| `spring-boot-starter-actuator`  | Enables `/actuator` endpoints for health, metrics, etc.            |
+| `spring-boot-starter-data-jpa`  | Adds Spring Data JPA and Hibernate                                 |
+| `spring-boot-starter-thymeleaf` | Enables server-side rendering using Thymeleaf templates            |
+| `spring-boot-starter-web`       | Core web functionality (Tomcat + MVC)                              |
+| `spring-boot-starter-security`  | Adds Spring Security                                               |
+| `spring-security-crypto`        | Password encoders (e.g., BCrypt, SCrypt, PBKDF2), encryption tools |
+
+---
+
+### 🔐 Encryption / Security
+
+```groovy
+implementation 'org.bouncycastle:bcprov-jdk18on:1.78'
+```
+
+* Adds **Bouncy Castle**: a provider of strong cryptographic algorithms
+* Useful for **FIPS 140-2** or custom encryption needs
+* Note: FIPS 140-3 will replace 140-2 after **September 22, 2026**
+
+---
+
+### 🐬 MySQL JDBC Driver
+
+```groovy
+runtimeOnly 'com.mysql:mysql-connector-j'
+```
+
+* Provides JDBC connector for **MySQL 8**
+* Declared as `runtimeOnly` because it's not needed at compile-time
+
+---
+
+### 🧪 Testing Dependencies
+
+```groovy
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+```
+
+* Adds **JUnit 5**, **Mockito**, and other test utilities
+
+---
+
+## ⚙️ Test Configuration
+
+```
+test {
+    useJUnitPlatform()
+}
+```
+
+* Enables **JUnit Platform** (JUnit 5+) for running tests
+
+---
+
+## ✅ Summary
+
+| Feature                   | Supported by                                        |
+| ------------------------- | --------------------------------------------------- |
+| Spring Boot Web App       | `spring-boot-starter-web`, `thymeleaf`, `security`  |
+| JPA + MySQL               | `spring-boot-starter-data-jpa`, `mysql-connector-j` |
+| Password Hashing & Crypto | `spring-security-crypto`, `bouncycastle`            |
+| FIPS Readiness            | Using BouncyCastle (monitor FIPS 140-3 readiness)   |
+| Monitoring                | `spring-boot-starter-actuator`                      |
+| Java Version              | Compiles with Java 21                               |
+
+---
+
+Would you like me to convert this into a visual diagram or include optional modules (e.g., Lombok, DevTools, Flyway)?
+
 
 ---
 

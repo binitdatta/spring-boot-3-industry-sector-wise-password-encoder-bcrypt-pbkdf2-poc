@@ -1,6 +1,8 @@
 package com.rollingstone.config;
 
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -15,6 +17,7 @@ import java.util.Map;
 public class TenantPasswordEncoderFactory {
 
     private static final String GLOBAL_SECRET = "StrongPepperUsedAcrossAllPBKDF2Hashes";
+    Logger logger = LoggerFactory.getLogger("TenantPasswordEncoderFactory");
 
     @Value("${app.security.tenant-type:retail}")
     private String tenantType;
@@ -34,6 +37,8 @@ public class TenantPasswordEncoderFactory {
 
         // Set default based on global tenant type
         String defaultId = tenantType.equalsIgnoreCase("healthcare") ? "pbkdf2" : "bcrypt";
+
+        logger.info(" Default Industry Sector Type :" + defaultId);
 
         this.delegatingEncoder = new DelegatingPasswordEncoder(defaultId, encoders);
     }
