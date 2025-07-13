@@ -16,7 +16,7 @@ public class TenantPasswordEncoderFactory {
 
     private static final String GLOBAL_SECRET = "StrongPepperUsedAcrossAllPBKDF2Hashes";
 
-    @Value("${app.security.tenant-type:commercial}")
+    @Value("${app.security.tenant-type:retail}")
     private String tenantType;
 
     private PasswordEncoder delegatingEncoder;
@@ -33,7 +33,7 @@ public class TenantPasswordEncoderFactory {
         ));
 
         // Set default based on global tenant type
-        String defaultId = tenantType.equalsIgnoreCase("government") ? "pbkdf2" : "bcrypt";
+        String defaultId = tenantType.equalsIgnoreCase("healthcare") ? "pbkdf2" : "bcrypt";
 
         this.delegatingEncoder = new DelegatingPasswordEncoder(defaultId, encoders);
     }

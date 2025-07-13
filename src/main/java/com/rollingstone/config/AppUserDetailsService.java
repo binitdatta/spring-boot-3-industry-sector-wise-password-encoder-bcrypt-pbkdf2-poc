@@ -23,7 +23,7 @@ public class AppUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRoles()) // COMMERCIAL or GOVERNMENT
+                .roles(user.getRoles()) // RETAIL or HEALTHCARE
                 .build();
     }
 }
